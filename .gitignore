@@ -1,0 +1,7 @@
+*.zip
+.ok*
+__pycache__
+__pycache__/*
+*/editor
+*/editor/*
+*.png
