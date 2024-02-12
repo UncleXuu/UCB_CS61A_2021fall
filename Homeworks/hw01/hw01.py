@@ -163,7 +163,7 @@ def hailstone(n):
 
 
 "*** YOUR CODE HERE ***"
-quine = 'print(quine, end= "")' # Do not understand
+x="y='x='+repr(x)+'; '; print(y+x)"; y='x='+repr(x)+'; '; print(y+x)
 
 
 def quine_test():
