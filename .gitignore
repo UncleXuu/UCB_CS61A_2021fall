@@ -5,3 +5,7 @@ __pycache__/*
 */editor
 */editor/*
 *.png
+*.ok
+tests
+ok
+.vscode
