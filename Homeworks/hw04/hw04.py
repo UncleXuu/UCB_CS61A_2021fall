@@ -51,13 +51,13 @@ def end(s):
 def planet(size):
     """Construct a planet of some size."""
     assert size > 0
-    "*** YOUR CODE HERE ***"
+    return ['planet', size]
 
 
 def size(w):
     """Select the size of a planet."""
     assert is_planet(w), 'must call size on a planet'
-    "*** YOUR CODE HERE ***"
+    return w[1]
 
 
 def is_planet(w):
@@ -117,7 +117,13 @@ def balanced(m):
     >>> check(HW_SOURCE_FILE, 'balanced', ['Index'])
     True
     """
-    "*** YOUR CODE HERE ***"
+    if is_planet(m):
+        return True
+    elif is_mobile(m):
+        return length(left(m)) * total_weight(end(left(m))) == length(right(m)) * total_weight(end(right(m))) and balanced(end(left(m))) and balanced(end(right(m)))
+    
+    #return True if is_planet(m) else total_weight(end(left(m))) * length(left(m)) == total_weight(end(right(m))) * length(right(m)) and balanced(end(left(m))) and balanced(end(right(m)))
+
 
 
 def totals_tree(m):
@@ -149,7 +155,11 @@ def totals_tree(m):
     >>> check(HW_SOURCE_FILE, 'totals_tree', ['Index'])
     True
     """
-    "*** YOUR CODE HERE ***"
+    if is_planet(m):
+        return tree(total_weight(m))
+    else:
+        assert is_mobile(m), "It's not either plant or mobile"
+        return tree(total_weight(m), [totals_tree(end(left(m))),totals_tree(end(right(m)))])
 
 
 def replace_loki_at_leaf(t, lokis_replacement):
@@ -181,7 +191,13 @@ def replace_loki_at_leaf(t, lokis_replacement):
     >>> laerad == yggdrasil # Make sure original tree is unmodified
     True
     """
-    "*** YOUR CODE HERE ***"
+    if is_leaf(t):
+        if label(t) == 'loki':
+            return tree(lokis_replacement)
+        else:
+            return t
+    else:
+        return tree(label(t), [replace_loki_at_leaf(x, lokis_replacement) for x in branches(t)])
 
 
 def has_path(t, word):
@@ -215,7 +231,13 @@ def has_path(t, word):
     False
     """
     assert len(word) > 0, 'no path for empty word.'
-    "*** YOUR CODE HERE ***"
+
+    # reference: https://github.com/AlliesChen/cs61a_fa21/blob/main/hw04/hw04.py
+    if label(t) == word:
+        return True
+    for b in branches(t):
+        if label(t) == word[0] and has_path(b, word[1:]):
+            return True
 
 
 def preorder(t):
