@@ -27,7 +27,24 @@ def insert_items(lst, entry, elem):
     ...       ['List', 'ListComp', 'Slice'])
     True
     """
-    "*** YOUR CODE HERE ***"
+    # reference: https://github.com/AlliesChen/cs61a_fa21/blob/main/lab06/lab06.py
+    i = 0
+    while i < len(lst):
+        if lst[i] == entry:
+            i += 1
+            lst.insert(i, elem)
+        i += 1
+    return lst
+
+    # find = []
+    # k = 0
+    # for i in range(len(lst)):
+    #     if lst[i] == entry:
+    #         find.append(i)
+    # for j in find:
+    #     k += 1
+    #     lst.insert(j+k, elem)
+    # return lst
 
 
 def count_occurrences(t, n, x):
@@ -50,7 +67,13 @@ def count_occurrences(t, n, x):
     >>> count_occurrences(s2, 6, 6)
     2
     """
-    "*** YOUR CODE HERE ***"
+    i, num = 0, 0
+    while i < n:
+        if next(t) == x:
+            num += 1
+        i += 1
+    return num
+
 
 
 def repeated(t, k):
@@ -75,4 +98,14 @@ def repeated(t, k):
     2
     """
     assert k > 1
-    "*** YOUR CODE HERE ***"
+    key = next(t)
+    count = 1
+    while True:
+        current = next(t)
+        if key == current:
+            count += 1
+        else:
+            key = current
+            count = 1
+        if count == k:
+            return current
