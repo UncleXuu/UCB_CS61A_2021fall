@@ -9,3 +9,5 @@ __pycache__/*
 tests
 ok
 .vscode
+construct_check*
+.DS_Store
