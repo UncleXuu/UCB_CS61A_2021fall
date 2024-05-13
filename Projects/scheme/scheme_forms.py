@@ -43,7 +43,8 @@ def do_define_form(expressions, env):
     elif isinstance(signature, Pair) and scheme_symbolp(signature.first):
         # defining a named procedure e.g. (define (f x y) (+ x y))
         # BEGIN PROBLEM 10
-        "*** YOUR CODE HERE ***"
+        env.define(signature.first, do_lambda_form(Pair(signature.rest, expressions.rest), env))
+        return signature.first
         # END PROBLEM 10
     else:
         bad_signature = signature.first if isinstance(signature, Pair) else signature
@@ -59,7 +60,7 @@ def do_quote_form(expressions, env):
     """
     validate_form(expressions, 1, 1)
     # BEGIN PROBLEM 5
-    # 只是脱掉最外面一层Pair！
+    # when scheme_read read 'quote', return Pair('quote', Pair(scheme_read(src), nil))
     return expressions.first
     # END PROBLEM 5
 
@@ -88,7 +89,7 @@ def do_lambda_form(expressions, env):
     formals = expressions.first
     validate_formals(formals)
     # BEGIN PROBLEM 7
-    "*** YOUR CODE HERE ***"
+    return LambdaProcedure(formals, expressions.rest, env)
     # END PROBLEM 7
 
 
@@ -245,7 +246,7 @@ def do_mu_form(expressions, env):
     formals = expressions.first
     validate_formals(formals)
     # BEGIN PROBLEM 11
-    "*** YOUR CODE HERE ***"
+    return MuProcedure(formals, expressions.rest)
     # END PROBLEM 11
 
 
