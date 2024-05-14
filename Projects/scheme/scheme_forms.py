@@ -31,6 +31,7 @@ def do_define_form(expressions, env):
     >>> scheme_eval(read_line("(f 3)"), env)
     5
     """
+    # define 后面可以跟很多个括号
     validate_form(expressions, 2)  # Checks that expressions is a list of length at least 2
     signature = expressions.first
     if scheme_symbolp(signature):
@@ -207,10 +208,10 @@ def make_let_frame(bindings, env):
     # BEGIN PROBLEM 14
     while bindings is not nil:
         validate_form(bindings.first, 2, 2)
-        names, values = Pair(bindings.first.first, names), Pair(bindings.first.rest, values)
+        names = Pair(bindings.first.first, names)
+        values = Pair(scheme_eval(bindings.first.rest.first, env), values)
         bindings = bindings.rest
     validate_formals(names)
-    values = values.map(lambda expr: scheme_eval(expr.first, env))
     # END PROBLEM 14
     return env.make_child_frame(names, values)
 
